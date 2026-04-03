@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+@theme {
+  --color-accent: #a0a0a0;
+  --color-accent-light: #c8c8c8;
+  --color-surface: #111113;
+  --color-surface-raised: #18181b;
+  --color-surface-hover: #1f1f23;
+  --color-border: rgba(255, 255, 255, 0.06);
+  --color-border-hover: rgba(255, 255, 255, 0.12);
+  --color-text-primary: #f0f0f0;
+  --color-text-secondary: #888888;
+  --color-text-muted: #555555;
+  --color-status-live: #4ade80;
+  --color-status-progress: #facc15;
+  --color-status-done: #818cf8;
+  --font-family-heading: "Space Grotesk", sans-serif;
+  --font-family-mono: "Rajdhani", sans-serif;
+  --font-family-body: "Space Grotesk", sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: var(--font-family-body);
+  background-color: #09090b;
+  color: var(--color-text-secondary);
+  overflow-x: hidden;
+  width: 100vw;
+  max-width: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+::selection {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+::-webkit-scrollbar {
+  width: 3px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+}
+
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  transition: all 0.4s ease;
+}
+
+.card:hover {
+  border-color: var(--color-border-hover);
+  background: var(--color-surface-hover);
+}
+
+.divider {
+  height: 1px;
+  background: var(--color-border);
+}
