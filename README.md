@@ -26,13 +26,9 @@ teams.
 
 ## Skills
 
-- Java
-- JavaScript
-- Python
-- React
-- Node.js
-- C++
-- Git
+- IOT
+- ML/AI
+- System Integration
 
 ---
 
