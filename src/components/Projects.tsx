@@ -45,17 +45,17 @@ const projects: Project[] = [
   },
 ]
 
-const statusLabel: Record<string, { dot: string; text: string }> = {
-  live: { dot: 'bg-status-live', text: 'Live' },
-  'in-progress': { dot: 'bg-status-progress', text: 'In progress' },
-  completed: { dot: 'bg-status-done', text: 'Completed' },
+const statusConfig: Record<string, { dot: string; text: string; ring?: string }> = {
+  live: { dot: 'bg-naija-green', text: 'Live', ring: 'pulse-live' },
+  'in-progress': { dot: 'bg-gold', text: 'In progress' },
+  completed: { dot: 'bg-vibranium', text: 'Completed' },
 }
 
 export default function Projects() {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.05 })
 
   return (
-    <section id="projects" className="py-24 md:py-32 px-8 md:px-12" ref={ref}>
+    <section id="projects" className="py-28 md:py-36 px-8 md:px-12" ref={ref}>
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <motion.div
@@ -64,83 +64,82 @@ export default function Projects() {
           transition={{ duration: 0.6 }}
           className="mb-20"
         >
-          <p className="text-[13px] text-text-muted tracking-wide mb-4">Portfolio</p>
-          <h2 className="text-3xl md:text-4xl font-medium text-text-primary tracking-tight">
-            Selected work
+          <p className="text-[13px] text-vibranium/60 tracking-[3px] mb-5 font-mono uppercase">Portfolio</p>
+          <h2 className="font-heading text-3xl md:text-[42px] font-semibold text-text-primary tracking-tight">
+            Selected<span className="vibranium-text"> work</span>
           </h2>
         </motion.div>
 
-        {/* Projects list */}
-        <div className="space-y-0">
+        {/* Projects grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {projects.map((project, i) => {
-            const status = statusLabel[project.status]
+            const status = statusConfig[project.status]
             return (
               <motion.article
                 key={project.title}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: 0.1 * i, duration: 0.6 }}
-                className="group border-t border-border py-10"
+                transition={{ delay: 0.12 * i, duration: 0.6 }}
+                className="wakanda-card p-8 flex flex-col group relative geo-corner"
               >
-                <div className="grid grid-cols-1 md:grid-cols-[1fr_1.5fr] gap-6 md:gap-12">
-                  {/* Left */}
-                  <div>
-                    <div className="flex items-center gap-2 mb-3">
-                      <span className={`w-1.5 h-1.5 rounded-full ${status.dot}`} />
-                      <span className="text-[12px] text-text-muted tracking-wide">
-                        {status.text}
-                      </span>
-                    </div>
-                    <h3 className="text-xl font-medium text-text-primary group-hover:text-accent-light transition-colors duration-300 mb-4">
-                      {project.title}
-                    </h3>
-                    <div className="flex items-center gap-4">
-                      {project.github && (
-                        <a
-                          href={project.github}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 text-[13px] text-text-muted hover:text-text-primary transition-colors"
-                        >
-                          <FaGithub size={14} />
-                          Source
-                        </a>
-                      )}
-                      {project.live && (
-                        <a
-                          href={project.live}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-[13px] text-text-muted hover:text-text-primary transition-colors"
-                        >
-                          Demo
-                          <HiArrowUpRight size={12} />
-                        </a>
-                      )}
-                    </div>
+                {/* Status + Links */}
+                <div className="flex items-center justify-between mb-6">
+                  <div className="flex items-center gap-2.5">
+                    <span className={`w-2 h-2 rounded-full ${status.dot} ${status.ring ?? ''}`} />
+                    <span className="text-[12px] text-text-muted tracking-wide font-mono">
+                      {status.text}
+                    </span>
                   </div>
+                  <div className="flex items-center gap-3">
+                    {project.github && (
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-text-muted hover:text-vibranium-light transition-colors"
+                        aria-label="GitHub"
+                      >
+                        <FaGithub size={15} />
+                      </a>
+                    )}
+                    {project.live && (
+                      <a
+                        href={project.live}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-text-muted hover:text-vibranium-light transition-colors"
+                        aria-label="Live demo"
+                      >
+                        <HiArrowUpRight size={14} />
+                      </a>
+                    )}
+                  </div>
+                </div>
 
-                  {/* Right */}
-                  <div>
-                    <p className="text-sm text-text-secondary leading-relaxed mb-6">
-                      {project.description}
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {project.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="px-3 py-1 text-[11px] text-text-muted border border-border rounded-full tracking-wide"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
+                {/* Title */}
+                <h3 className="font-heading text-lg font-semibold text-text-primary group-hover:text-vibranium-light transition-colors duration-400 mb-4">
+                  {project.title}
+                </h3>
+
+                {/* Description */}
+                <p className="text-sm text-text-secondary leading-[1.8] mb-8 flex-1">
+                  {project.description}
+                </p>
+
+                {/* Tags */}
+                <div className="flex flex-wrap gap-2">
+                  {project.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-3 py-1 text-[11px] text-vibranium/60 border border-vibranium/10 rounded-full tracking-wide font-mono bg-vibranium-dim"
+                    >
+                      {tag}
+                    </span>
+                  ))}
                 </div>
               </motion.article>
             )
           })}
-          <div className="border-t border-border" />
         </div>
       </div>
     </section>

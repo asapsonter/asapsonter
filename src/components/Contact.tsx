@@ -20,7 +20,7 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="py-24 md:py-32 px-8 md:px-12" ref={ref}>
+    <section id="contact" className="py-28 md:py-36 px-8 md:px-12" ref={ref}>
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <motion.div
@@ -29,43 +29,43 @@ export default function Contact() {
           transition={{ duration: 0.6 }}
           className="mb-20"
         >
-          <p className="text-[13px] text-text-muted tracking-wide mb-4">Contact</p>
-          <h2 className="text-3xl md:text-4xl font-medium text-text-primary tracking-tight max-w-lg">
-            Let's build something together
+          <p className="text-[13px] text-vibranium/60 tracking-[3px] mb-5 font-mono uppercase">Contact</p>
+          <h2 className="font-heading text-3xl md:text-[42px] font-semibold text-text-primary tracking-tight max-w-lg">
+            Let's build<span className="vibranium-text"> something great</span>
           </h2>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-[1fr_1.2fr] gap-16 md:gap-20">
-          {/* Left - Info */}
+          {/* Left */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.2, duration: 0.6 }}
           >
-            <p className="text-sm text-text-secondary leading-relaxed mb-10">
+            <p className="text-sm text-text-secondary leading-[1.8] mb-10">
               Have a project in mind? Looking for an IoT/ML engineer to bring
               your vision to life? I'm always open to discussing new
-              opportunities and challenging problems.
+              opportunities, collaborations, and challenging problems.
             </p>
 
             <div className="space-y-6 mb-10">
               <div>
-                <p className="text-[13px] text-text-muted tracking-wide mb-1">Email</p>
+                <p className="text-[13px] text-text-muted tracking-wide mb-1.5 font-mono">Email</p>
                 <a
                   href="mailto:samuel.aarga@gmail.com"
-                  className="text-sm text-text-primary hover:text-accent-light transition-colors inline-flex items-center gap-1"
+                  className="text-sm text-text-primary hover:text-vibranium-light transition-colors inline-flex items-center gap-1.5"
                 >
                   samuel.aarga@gmail.com
-                  <HiArrowUpRight size={12} className="text-text-muted" />
+                  <HiArrowUpRight size={12} className="text-vibranium/40" />
                 </a>
               </div>
               <div>
-                <p className="text-[13px] text-text-muted tracking-wide mb-1">Location</p>
+                <p className="text-[13px] text-text-muted tracking-wide mb-1.5 font-mono">Location</p>
                 <p className="text-sm text-text-primary">Nigeria</p>
               </div>
             </div>
 
-            <div className="flex items-center gap-5">
+            <div className="flex items-center gap-4">
               {[
                 { icon: <FaGithub size={16} />, href: 'https://github.com/asapsonter' },
                 { icon: <FaLinkedin size={16} />, href: 'https://linkedin.com/in/aarga-sonter' },
@@ -76,7 +76,7 @@ export default function Contact() {
                   href={s.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-text-muted hover:text-text-primary transition-colors duration-300"
+                  className="w-10 h-10 rounded-lg bg-vibranium-dim border border-vibranium/10 flex items-center justify-center text-text-muted hover:text-vibranium-light hover:border-vibranium/25 transition-all duration-300"
                 >
                   {s.icon}
                 </a>
@@ -90,10 +90,10 @@ export default function Contact() {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.3, duration: 0.6 }}
             onSubmit={handleSubmit}
-            className="space-y-6"
+            className="wakanda-card p-8 space-y-6"
           >
             <div>
-              <label className="text-[13px] text-text-muted tracking-wide block mb-2">
+              <label className="text-[13px] text-text-muted tracking-wide block mb-2.5 font-mono">
                 Name
               </label>
               <input
@@ -103,12 +103,12 @@ export default function Contact() {
                 onChange={(e) =>
                   setFormData({ ...formData, name: e.target.value })
                 }
-                className="w-full bg-transparent border-b border-border px-0 py-3 text-sm text-text-primary focus:outline-none focus:border-text-muted transition-colors placeholder:text-text-muted/50"
+                className="w-full bg-surface border border-border rounded-lg px-4 py-3.5 text-sm text-text-primary focus:outline-none focus:border-vibranium/30 focus:shadow-[0_0_20px_rgba(123,47,242,0.08)] transition-all placeholder:text-text-muted/40"
                 placeholder="Your name"
               />
             </div>
             <div>
-              <label className="text-[13px] text-text-muted tracking-wide block mb-2">
+              <label className="text-[13px] text-text-muted tracking-wide block mb-2.5 font-mono">
                 Email
               </label>
               <input
@@ -118,12 +118,12 @@ export default function Contact() {
                 onChange={(e) =>
                   setFormData({ ...formData, email: e.target.value })
                 }
-                className="w-full bg-transparent border-b border-border px-0 py-3 text-sm text-text-primary focus:outline-none focus:border-text-muted transition-colors placeholder:text-text-muted/50"
+                className="w-full bg-surface border border-border rounded-lg px-4 py-3.5 text-sm text-text-primary focus:outline-none focus:border-vibranium/30 focus:shadow-[0_0_20px_rgba(123,47,242,0.08)] transition-all placeholder:text-text-muted/40"
                 placeholder="your@email.com"
               />
             </div>
             <div>
-              <label className="text-[13px] text-text-muted tracking-wide block mb-2">
+              <label className="text-[13px] text-text-muted tracking-wide block mb-2.5 font-mono">
                 Message
               </label>
               <textarea
@@ -133,13 +133,13 @@ export default function Contact() {
                 onChange={(e) =>
                   setFormData({ ...formData, message: e.target.value })
                 }
-                className="w-full bg-transparent border-b border-border px-0 py-3 text-sm text-text-primary focus:outline-none focus:border-text-muted transition-colors resize-none placeholder:text-text-muted/50"
+                className="w-full bg-surface border border-border rounded-lg px-4 py-3.5 text-sm text-text-primary focus:outline-none focus:border-vibranium/30 focus:shadow-[0_0_20px_rgba(123,47,242,0.08)] transition-all resize-none placeholder:text-text-muted/40"
                 placeholder="Tell me about your project..."
               />
             </div>
             <button
               type="submit"
-              className="mt-4 px-8 py-3 bg-text-primary text-[#09090b] text-sm font-medium rounded-full hover:bg-text-secondary transition-colors duration-300"
+              className="w-full mt-2 py-3.5 bg-vibranium text-white text-sm font-medium rounded-lg hover:bg-vibranium-light hover:shadow-lg hover:shadow-vibranium/20 transition-all duration-300"
             >
               {submitted ? 'Message sent' : 'Send message'}
             </button>

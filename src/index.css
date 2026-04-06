@@ -1,22 +1,29 @@
 @import "tailwindcss";
 
 @theme {
-  --color-accent: #a0a0a0;
-  --color-accent-light: #c8c8c8;
-  --color-surface: #111113;
-  --color-surface-raised: #18181b;
-  --color-surface-hover: #1f1f23;
-  --color-border: rgba(255, 255, 255, 0.06);
-  --color-border-hover: rgba(255, 255, 255, 0.12);
-  --color-text-primary: #f0f0f0;
-  --color-text-secondary: #888888;
-  --color-text-muted: #555555;
-  --color-status-live: #4ade80;
-  --color-status-progress: #facc15;
-  --color-status-done: #818cf8;
-  --font-family-heading: "Space Grotesk", sans-serif;
-  --font-family-mono: "Rajdhani", sans-serif;
-  --font-family-body: "Space Grotesk", sans-serif;
+  --color-vibranium: #7B2FF2;
+  --color-vibranium-light: #9D5CFA;
+  --color-vibranium-dim: rgba(123, 47, 242, 0.15);
+  --color-gold: #D4A843;
+  --color-gold-light: #E8C76A;
+  --color-gold-dim: rgba(212, 168, 67, 0.12);
+  --color-naija-green: #008751;
+  --color-naija-green-dim: rgba(0, 135, 81, 0.10);
+  --color-surface: #09090b;
+  --color-surface-raised: #111114;
+  --color-surface-card: #0f0f13;
+  --color-border: rgba(123, 47, 242, 0.08);
+  --color-border-hover: rgba(123, 47, 242, 0.20);
+  --color-border-gold: rgba(212, 168, 67, 0.12);
+  --color-text-primary: #f2f0f5;
+  --color-text-secondary: #8a8494;
+  --color-text-muted: #4a4458;
+  --color-status-live: #008751;
+  --color-status-progress: #D4A843;
+  --color-status-done: #7B2FF2;
+  --font-family-heading: "Outfit", sans-serif;
+  --font-family-mono: "Space Mono", monospace;
+  --font-family-body: "Outfit", sans-serif;
 }
 
 * {
@@ -32,13 +39,12 @@ html {
 
 body {
   font-family: var(--font-family-body);
-  background-color: #09090b;
+  background-color: var(--color-surface);
   color: var(--color-text-secondary);
   overflow-x: hidden;
   width: 100vw;
   max-width: 100%;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 #root {
@@ -47,36 +53,112 @@ body {
 }
 
 ::selection {
-  background: rgba(255, 255, 255, 0.1);
-  color: #fff;
+  background: var(--color-vibranium-dim);
+  color: var(--color-gold-light);
 }
 
-::-webkit-scrollbar {
-  width: 3px;
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--color-vibranium); border-radius: 3px; }
+
+/* Adire-inspired geometric pattern - subtle background */
+.adire-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 30L30 60L0 30Z' fill='none' stroke='rgba(123,47,242,0.04)' stroke-width='0.5'/%3E%3Cpath d='M30 10L50 30L30 50L10 30Z' fill='none' stroke='rgba(212,168,67,0.03)' stroke-width='0.5'/%3E%3C/svg%3E");
+  background-size: 60px 60px;
 }
 
-::-webkit-scrollbar-track {
-  background: transparent;
+/* Tribal line accent */
+.tribal-line {
+  height: 2px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    var(--color-vibranium) 15%,
+    var(--color-gold) 50%,
+    var(--color-naija-green) 85%,
+    transparent 100%
+  );
+  opacity: 0.3;
 }
 
-::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 3px;
-}
-
-.card {
-  background: var(--color-surface);
+/* Vibranium glow effect on cards */
+.wakanda-card {
+  background: var(--color-surface-card);
   border: 1px solid var(--color-border);
-  border-radius: 12px;
-  transition: all 0.4s ease;
+  border-radius: 16px;
+  position: relative;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-.card:hover {
+.wakanda-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 17px;
+  background: linear-gradient(135deg,
+    rgba(123, 47, 242, 0) 0%,
+    rgba(123, 47, 242, 0.1) 50%,
+    rgba(212, 168, 67, 0.05) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: -1;
+}
+
+.wakanda-card:hover {
   border-color: var(--color-border-hover);
-  background: var(--color-surface-hover);
+  transform: translateY(-2px);
 }
 
-.divider {
-  height: 1px;
-  background: var(--color-border);
+.wakanda-card:hover::before {
+  opacity: 1;
+}
+
+/* Vibranium shimmer for accent text */
+.vibranium-text {
+  background: linear-gradient(135deg, var(--color-vibranium-light), var(--color-gold), var(--color-vibranium-light));
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 4s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%, 100% { background-position: 0% center; }
+  50% { background-position: 200% center; }
+}
+
+/* Pulse ring for status indicators */
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgba(0, 135, 81, 0.4); }
+  70% { box-shadow: 0 0 0 6px rgba(0, 135, 81, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(0, 135, 81, 0); }
+}
+
+.pulse-live {
+  animation: pulse-ring 2s ease-out infinite;
+}
+
+/* Geometric corner accents for sections */
+.geo-corner::before,
+.geo-corner::after {
+  content: '';
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border-color: rgba(123, 47, 242, 0.15);
+  border-style: solid;
+  pointer-events: none;
+}
+
+.geo-corner::before {
+  top: 0;
+  left: 0;
+  border-width: 1px 0 0 1px;
+}
+
+.geo-corner::after {
+  bottom: 0;
+  right: 0;
+  border-width: 0 1px 1px 0;
 }
