@@ -4,7 +4,7 @@
 
 **Architect of Intelligent Systems** · Building the Infrastructure of Tomorrow
 
-`AI` · `Platforms` · `Security` · `Cloud`
+`IOT` · `AI` · `Platforms` · `Systems Design` · `Cloud`
 
 ---
 
