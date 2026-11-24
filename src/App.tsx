@@ -1,27 +1,33 @@
+import { lazy, Suspense } from 'react'
+import { Route, Routes } from 'react-router-dom'
 import Navbar from './components/Navbar'
-import Hero from './components/Hero'
-import About from './components/About'
-import Skills from './components/Skills'
-import Projects from './components/Projects'
-import Contact from './components/Contact'
 import Footer from './components/Footer'
 import AdireBackground from './components/AdireBackground'
+import ScrollManager from './components/ScrollManager'
+import Home from './pages/Home'
+import Blog from './pages/Blog'
+import NotFound from './pages/NotFound'
+
+// Markdown rendering + syntax highlighting only load when a post is opened.
+const PostPage = lazy(() => import('./pages/PostPage'))
 
 function App() {
   return (
     <div className="relative min-h-screen overflow-x-hidden bg-surface">
+      <ScrollManager />
       <AdireBackground />
-      <div className="relative z-10 w-full">
+      <div className="relative z-10 w-full flex flex-col min-h-screen">
         <Navbar />
-        <Hero />
-        <div className="tribal-line max-w-6xl mx-auto" />
-        <About />
-        <div className="tribal-line max-w-6xl mx-auto" />
-        <Skills />
-        <div className="tribal-line max-w-6xl mx-auto" />
-        <Projects />
-        <div className="tribal-line max-w-6xl mx-auto" />
-        <Contact />
+        <main className="flex-1">
+          <Suspense fallback={<div className="min-h-screen" />}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:slug" element={<PostPage />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+          </Suspense>
+        </main>
         <Footer />
       </div>
     </div>

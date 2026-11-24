@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:truehost": "tsc -b && vite build --mode truehost && rm -f portfolio-truehost.zip && cd dist-truehost && zip -qr ../portfolio-truehost.zip . && echo 'Upload portfolio-truehost.zip to your domain folder in cPanel'",
     "lint": "eslint .",
     "preview": "vite preview"
   },
@@ -19,7 +20,11 @@
     "react-dom": "^19.2.4",
     "react-icons": "^5.6.0",
     "react-intersection-observer": "^10.0.3",
+    "react-markdown": "^10.1.0",
+    "react-router-dom": "^7.18.6",
     "react-type-animation": "^3.2.0",
+    "rehype-highlight": "^7.0.2",
+    "remark-gfm": "^4.0.1",
     "tailwindcss": "^4.2.2",
     "three": "^0.183.2"
   },

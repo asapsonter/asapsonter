@@ -3,10 +3,11 @@ import { TypeAnimation } from 'react-type-animation'
 import { FaGithub, FaLinkedin } from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6'
 import { HiArrowRight } from 'react-icons/hi'
+import { Link } from 'react-router-dom'
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center px-8 md:px-12 overflow-hidden">
+    <section className="relative min-h-screen flex items-center px-6 md:px-12 overflow-hidden">
       {/* Ambient vibranium glow */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-[20%] right-[10%] w-[500px] h-[500px] rounded-full bg-vibranium/[0.03] blur-[150px]" />
@@ -94,12 +95,12 @@ export default function Hero() {
                 View work
                 <HiArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
               </a>
-              <a
-                href="#contact"
+              <Link
+                to="/blog"
                 className="inline-flex items-center gap-2 px-7 py-3.5 border border-border-gold text-gold text-sm rounded-full hover:bg-gold-dim hover:border-gold/30 transition-all duration-300"
               >
-                Contact me
-              </a>
+                Read the blog
+              </Link>
             </motion.div>
 
             {/* Socials */}

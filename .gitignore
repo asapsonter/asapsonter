@@ -23,3 +23,7 @@ CLAUDE.md
 *.njsproj
 *.sln
 *.sw?
+
+# Truehost build output
+dist-truehost
+portfolio-truehost.zip
