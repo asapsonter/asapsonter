@@ -1,0 +1,53 @@
+name: Deploy to Truehost
+
+# Builds the Truehost target and uploads it over FTPS on every push to main,
+# so new blog posts (including ones pushed by InPosts) go live on
+# sonteraarga.com without a manual zip upload.
+#
+# Needs these repository secrets (Settings → Secrets and variables → Actions):
+#   TRUEHOST_FTP_SERVER     e.g. ftp.sonteraarga.com
+#   TRUEHOST_FTP_USERNAME   cPanel FTP account
+#   TRUEHOST_FTP_PASSWORD
+#   TRUEHOST_FTP_DIR        domain document root on the FTP account, with
+#                           trailing slash, e.g. /sonteraarga.com/
+# Until TRUEHOST_FTP_SERVER is set, the deploy step is skipped (not failed).
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: truehost
+  cancel-in-progress: false   # never interrupt an upload half-way
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      FTP_SERVER: ${{ secrets.TRUEHOST_FTP_SERVER }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+      - run: npx tsc -b && npx vite build --mode truehost
+
+      - name: Upload to Truehost (FTPS)
+        if: env.FTP_SERVER != ''
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.TRUEHOST_FTP_SERVER }}
+          username: ${{ secrets.TRUEHOST_FTP_USERNAME }}
+          password: ${{ secrets.TRUEHOST_FTP_PASSWORD }}
+          protocol: ftps
+          local-dir: ./dist-truehost/
+          server-dir: ${{ secrets.TRUEHOST_FTP_DIR }}
+
+      - name: Skipped — FTP secrets not set
+        if: env.FTP_SERVER == ''
+        run: echo "::warning::TRUEHOST_FTP_* secrets not set; Truehost deploy skipped."
